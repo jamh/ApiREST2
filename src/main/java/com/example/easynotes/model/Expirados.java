@@ -1,5 +1,4 @@
 package com.example.easynotes.model;
-
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "login")
 @EntityListeners(AuditingEntityListener.class)
-public class Login {
+public class Expirados {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +17,7 @@ public class Login {
 
 	@NotBlank
 	private String empleado;
-
+	
 	@NotBlank
 	private String password;
 
@@ -27,6 +26,9 @@ public class Login {
 
 	@NotBlank
 	private Date expiracion;
+	
+	@NotBlank
+	private Long idPerfil;
 	
 	@NotBlank
 	private String perfil;
@@ -47,7 +49,6 @@ public class Login {
         this.empleado = empleado;
     }
     
-    
     public String getPassword() {
         return password;
     }
@@ -55,6 +56,7 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
+    
     
     public String getCorreo() {
         return correo;
@@ -72,6 +74,14 @@ public class Login {
         this.expiracion = expiracion;
     }
     
+    public Long getIdPerfil() {
+        return idPerfil;
+    }
+
+    public void setIdPerfil(Long idPerfil) {
+        this.idPerfil = idPerfil;
+    }
+    
     public String getPerfil() {
         return perfil;
     }
@@ -82,5 +92,3 @@ public class Login {
     
     
 }
-
-

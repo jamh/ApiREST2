@@ -7,7 +7,6 @@ import com.example.easynotes.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class LoginController {
     public List<Login> getAllLogin() {
         return loginRepository.findAll();
     }
-	
+	/*
 	@PostMapping("/login")
     public Login createLogin(@Valid @RequestBody Login login) {
         return loginRepository.save(login);
@@ -59,6 +58,6 @@ public class LoginController {
         loginRepository.delete(login);
 
         return ResponseEntity.ok().build();
-    }
+    } */
 
 }
