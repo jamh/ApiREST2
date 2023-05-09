@@ -17,10 +17,7 @@ public class LoginController {
 	@Autowired
 	LoginRepository loginRepository;
 	
-	@GetMapping("/login")
-    public List<Login> getAllLogin() {
-        return loginRepository.findAll();
-    }
+	
 	/*
 	@PostMapping("/login")
     public Login createLogin(@Valid @RequestBody Login login) {

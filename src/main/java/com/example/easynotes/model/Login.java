@@ -28,8 +28,9 @@ public class Login {
 	@NotBlank
 	private Date expiracion;
 	
-	@NotBlank
-	private String perfil;
+	
+    private Long idPerfil;
+	
 	
 	public Long getId() {
         return id;
@@ -72,13 +73,15 @@ public class Login {
         this.expiracion = expiracion;
     }
     
-    public String getPerfil() {
-        return perfil;
+    public Long getidPerfil() {
+        return idPerfil;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    public void setidPerfil(Long idPerfil) {
+        this.idPerfil = idPerfil;
     }
+    
+    
     
     
 }

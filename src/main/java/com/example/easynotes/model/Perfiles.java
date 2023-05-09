@@ -1,35 +1,30 @@
 package com.example.easynotes.model;
 
-import java.sql.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
+import java.util.List;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "perfil")
+@Table(name = "perfiles")
 @EntityListeners(AuditingEntityListener.class)
 public class Perfiles {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPerfil;
+	
+    private Long idPerfil;
 	
 	@NotBlank
 	private String perfil;
+	
 
     
-    public Long getIdPerfil() {
+    public Long getidPerfil() {
         return idPerfil;
     }
 
-    public void setIdPerfil(Long idPerfil) {
+    public void setidPerfil(Long idPerfil) {
         this.idPerfil = idPerfil;
     }
     
