@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
-@Table(name = "login")
+@Table(name = "expirados")
 public class Expirados {
 
 	@Id
@@ -26,10 +26,10 @@ public class Expirados {
 	@NotBlank
 	private Date expiracion;
 	
-	 @ManyToOne
+	/* @ManyToOne
 	 @JoinColumn(name = "idPerfil")
 	 private Perfiles perfiles;
-	
+	*/
 	
 	
 	public Long getId() {

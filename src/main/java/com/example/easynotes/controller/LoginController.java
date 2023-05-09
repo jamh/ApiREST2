@@ -11,25 +11,25 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apilogin")
 public class LoginController {
 	
 	@Autowired
 	LoginRepository loginRepository;
 	
 	
-	/*
+/*
 	@PostMapping("/login")
     public Login createLogin(@Valid @RequestBody Login login) {
         return loginRepository.save(login);
     }
-	
+*/
 	@GetMapping("/login/{id}")
     public Login getLoginById(@PathVariable(value = "id") Long loginId) {
         return loginRepository.findById(loginId)
                 .orElseThrow(() -> new ResourceNotFoundException("Login", "id", loginId));
     }
-
+      /*
     @PutMapping("/login/{id}")
     public Login updateLogin(@PathVariable(value = "id") Long loginId,
                                            @Valid @RequestBody Login loginDetails) {

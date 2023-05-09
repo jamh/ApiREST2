@@ -14,7 +14,7 @@ import java.util.List;
  * Created by rajeevkumarsingh on 27/06/17.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apinote")
 public class NoteController {
 
     @Autowired

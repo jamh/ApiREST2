@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication(scanBasePackages={
-"com.example.something", "com.example.application"})
+"com.example.easynotes", "com.example.application"})
 @EnableJpaAuditing
 public class EasyNotesApplication {
 
