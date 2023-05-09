@@ -22,6 +22,7 @@ public class ExpiradosController {
 
     @GetMapping("/expirados")
     public List<expiradosDTO> buscaExpiradosData() {
+    	System.out.println("Entro");
         return repo.buscaExpirados();
     }
     
