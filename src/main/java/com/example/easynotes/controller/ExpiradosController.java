@@ -1,11 +1,12 @@
 package com.example.easynotes.controller;
 
-import com.example.easynotes.dto.expiradosDTO;
-import com.example.easynotes.repository.ExpiradosRepository;
-import com.example.easynotes.service.ExpiradosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.easynotes.dto.expiradosDTO;
+import com.example.easynotes.service.ExpiradosService;
+
 import java.util.List;
 
 
@@ -14,16 +15,16 @@ import java.util.List;
 public class ExpiradosController {
 	
 	@Autowired
-	private  ExpiradosRepository repo;
+	private  ExpiradosService repo;
 
-   /* public ExpiradosController(ExpiradosService expiradosService) {
-        this.expiradosService = expiradosService;
-    }*/
+   public ExpiradosController(ExpiradosService repo) {
+        this.repo = repo;
+    }
 
     @GetMapping("/expirados")
     public List<expiradosDTO> buscaExpiradosData() {
     	System.out.println("Entro");
-        return repo.buscaExpirados();
+        return repo.buscaExpiradosData();
     }
     
     

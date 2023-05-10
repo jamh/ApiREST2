@@ -12,10 +12,10 @@ import com.example.easynotes.repository.ExpiradosRepository;
 public class ExpiradosService {
 	
 	@Autowired
-	private  ExpiradosRepository expiradosRepository ;
+	private  ExpiradosRepository repo ;
 	
 	
 	public List<expiradosDTO> buscaExpiradosData() {
-		return expiradosRepository.buscaExpirados();
+		return repo.buscaExpirados();
 	}
 }
