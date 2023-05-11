@@ -22,4 +22,7 @@ public interface EstacionamientoRepository extends JpaRepository<Estacionamiento
     @Transactional
     @Query("UPDATE Estacionamiento SET Posicion = 1 WHERE Posicion = 99")
     int actualizarPosicion();
+	
+	@Transactional
+	void deleteByPosicion(Long posicion);
 }
