@@ -3,6 +3,9 @@ package com.example.easynotes.repository;
 import com.example.easynotes.dto.expiradosDTO;
 import com.example.easynotes.model.Estacionamiento;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -24,5 +27,24 @@ public interface EstacionamientoRepository extends JpaRepository<Estacionamiento
     int actualizarPosicion();
 	
 	@Transactional
-	void deleteByPosicion(Long posicion);
+	@Modifying
+    @Query("DELETE FROM Estacionamiento e WHERE e.id = :id")
+    void deleteById(@Param("id") Long id);
+	
+	@Transactional
+	@Modifying
+    @Query(value = "INSERT INTO Estacionamiento (uid, H_Entrada, H_Salida, H_Pago, Posicion, fecha, monto_pago, pagado, descuento, importe_descuento, fecha_cap) "
+    		+ "VALUES (:uid, :hEntrada, :hSalida, :hPago, :posicion, :fecha, :montoPago, :pagado, :descuento, :importeDescuento, :fechaCap)", nativeQuery = true)
+    void insertarEstacionamiento(
+    		@Param("uid") String uid, 
+    		@Param("hEntrada") Date hEntrada, 
+    		@Param("hSalida") Date hSalida,
+            @Param("hPago") Date hPago, 
+            @Param("posicion") Long posicion, 
+            @Param("fecha") Date fecha,
+            @Param("montoPago") Double montoPago, 
+            @Param("pagado") Double pagado, 
+            @Param("descuento") Long descuento,
+            @Param("importeDescuento") Double importeDescuento, 
+            @Param("fechaCap") Date fechaCap);
 }

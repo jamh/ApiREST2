@@ -1,9 +1,12 @@
 package com.example.easynotes.model;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
+import java.security.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -44,9 +47,11 @@ public class Estacionamiento {
 	private Long descuento;
     
     @Column(name = "importe_descuento")
-    private Long importeDescuento;
+    private Double importeDescuento;
     
     @Column(name = "fecha_cap")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     private Date fechaCap;
 
 	public Long getId() {
@@ -129,11 +134,13 @@ public class Estacionamiento {
 		this.descuento = descuento;
 	}
 
-	public Long getImporteDescuento() {
+	
+
+	public Double getImporteDescuento() {
 		return importeDescuento;
 	}
 
-	public void setImporteDescuento(Long importeDescuento) {
+	public void setImporteDescuento(Double importeDescuento) {
 		this.importeDescuento = importeDescuento;
 	}
 
@@ -144,6 +151,10 @@ public class Estacionamiento {
 	public void setFechaCap(Date fechaCap) {
 		this.fechaCap = fechaCap;
 	}
+
+	
+
+	
     
 	
 }
