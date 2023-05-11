@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
-@Table(name = "Estacionamiento")
+@Table(name = "estacionamiento")
 @EntityListeners(AuditingEntityListener.class)
 public class Estacionamiento {
 	
@@ -19,30 +19,28 @@ public class Estacionamiento {
 	private String uid;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H.Entrada")
-    private Date Hentrada;
+	@Column(name = "H_Entrada")
+    private Date hEntrada;
     
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H.Salida")
-    private Date Hsalida;
+	@Column(name = "H_Salida")
+    private Date hSalida;
     
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H.Pago")
-    private Date Hpago;
+	@Column(name = "H_Pago")
+    private Date hPago;
     
-    @NotBlank
-	private String posicion;
+	@Column(name = "Posicion")
+	@NotBlank
+	private Long posicion;
     
-    @NotBlank
 	private Date fecha;
     
     @Column(name = "monto_pago")
-    private Long montoPago;
+    private Double montoPago;
     
-    @NotBlank
-	private Long pagado;
+	private Double pagado;
     
-    @NotBlank
 	private Long descuento;
     
     @Column(name = "importe_descuento")
@@ -67,35 +65,35 @@ public class Estacionamiento {
 		this.uid = uid;
 	}
 
-	public Date getHentrada() {
-		return Hentrada;
+	public Date gethEntrada() {
+		return hEntrada;
 	}
 
-	public void setHentrada(Date hentrada) {
-		Hentrada = hentrada;
+	public void sethEntrada(Date hEntrada) {
+		this.hEntrada = hEntrada;
 	}
 
-	public Date getHsalida() {
-		return Hsalida;
+	public Date gethSalida() {
+		return hSalida;
 	}
 
-	public void setHsalida(Date hsalida) {
-		Hsalida = hsalida;
+	public void sethSalida(Date hSalida) {
+		this.hSalida = hSalida;
 	}
 
-	public Date getHpago() {
-		return Hpago;
+	public Date gethPago() {
+		return hPago;
 	}
 
-	public void setHpago(Date hpago) {
-		Hpago = hpago;
+	public void sethPago(Date hPago) {
+		this.hPago = hPago;
 	}
 
-	public String getPosicion() {
+	public Long getPosicion() {
 		return posicion;
 	}
 
-	public void setPosicion(String posicion) {
+	public void setPosicion(Long posicion) {
 		this.posicion = posicion;
 	}
 
@@ -107,19 +105,19 @@ public class Estacionamiento {
 		this.fecha = fecha;
 	}
 
-	public Long getMontoPago() {
+	public Double getMontoPago() {
 		return montoPago;
 	}
 
-	public void setMontoPago(Long montoPago) {
+	public void setMontoPago(Double montoPago) {
 		this.montoPago = montoPago;
 	}
 
-	public Long getPagado() {
+	public Double getPagado() {
 		return pagado;
 	}
 
-	public void setPagado(Long pagado) {
+	public void setPagado(Double pagado) {
 		this.pagado = pagado;
 	}
 
@@ -146,4 +144,6 @@ public class Estacionamiento {
 	public void setFechaCap(Date fechaCap) {
 		this.fechaCap = fechaCap;
 	}
+    
+	
 }
