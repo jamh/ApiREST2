@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import java.security.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -53,6 +52,10 @@ public class Estacionamiento {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date fechaCap;
+    
+    @OneToOne(mappedBy = "estacionamiento")
+    private Descuentos descuentos;
+    
 
 	public Long getId() {
 		return id;
