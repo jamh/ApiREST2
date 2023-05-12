@@ -53,7 +53,7 @@ public class Estacionamiento {
     @CreatedDate
     private Date fechaCap;
     
-    @OneToOne(mappedBy = "estacionamiento")
+    @OneToOne(mappedBy = "estacionamiento", cascade = CascadeType.ALL)
     private Descuentos descuentos;
     
 

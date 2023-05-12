@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.easynotes.dto.EstacionamientoDTO;
 import com.example.easynotes.model.Descuentos;
 
 @Repository
@@ -38,11 +39,9 @@ public interface DescuentosRepository extends JpaRepository<Descuentos, Long>{
 	@Query(value="SELECT * FROM est_descuentos WHERE estatus= 1", nativeQuery=true)
 	List<Descuentos>findEstatus(); 
 	
-	 @Query(value="SELECT *, d " +
-	           "FROM Descuentos d " +
-	           "JOIN d.estacionamiento e "+
-	           "WHERE d.tarjeta = e.uid", nativeQuery=true)
-	    List<Object[]> obtenerInformacionTarjetas();
-	
+	@Query(value= "SELECT e.id as idEstacionamiento, e.uid, d.id as idDescuento, d.estatus, d.tarjeta " +
+	           "FROM est_descuentos d, estacionamiento e " +
+	           "WHERE d.tarjeta = e.uid", nativeQuery= true)
+	    List<EstacionamientoDTO> obtenerInformacionDescuento();
 	
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.easynotes.dto.EstacionamientoDTO;
-import com.example.easynotes.dto.expiradosDTO;
 import com.example.easynotes.model.Descuentos;
 import com.example.easynotes.repository.DescuentosRepository;
 
@@ -64,8 +63,8 @@ public class DescuentosController {
     }
 	
 	@GetMapping("/tarjetas")
-    public List<Object[]> obtenerInformacionTarjetas() {
-        return repodes.obtenerInformacionTarjetas();
+    public List<EstacionamientoDTO> obtenerInformacionDescuento() {
+        return repodes.obtenerInformacionDescuento();
     }
 	
 	
