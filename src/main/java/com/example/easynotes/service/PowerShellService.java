@@ -24,22 +24,24 @@ public class PowerShellService {
 
 	public String VerRegla(UsuarioIp userIp) throws IOException {
 		UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
-		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())
-				&& foundUser.getIp().equals(userIp.getIp())) {
+		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())) {
+			if (foundUser.getIp() == null || !foundUser.getIp().equals(userIp.getIp()) ) {
+				throw new RuntimeException("IP invalida");
+			}
 
 			String command = "powershell.exe  Get-NetFirewallrule -DisplayName 'Puerto1521' | Get-NetFirewallAddressFilter";
 
 			Process powerShellProcess = Runtime.getRuntime().exec(command);
 
 			powerShellProcess.getOutputStream().close();
-
+			System.out.println(command);
 			String line;
-			StringBuilder output = new StringBuilder(); // Almacena la salida de PowerShell
+			StringBuilder output = new StringBuilder();
 
 			BufferedReader stdout = new BufferedReader(new InputStreamReader(powerShellProcess.getInputStream()));
 			while ((line = stdout.readLine()) != null) {
 				System.out.println(line);
-				output.append(line).append("\n"); // Agrega la línea a la salida
+				output.append(line).append("\n"); 
 			}
 			stdout.close();
 
@@ -51,28 +53,29 @@ public class PowerShellService {
 			stderr.close();
 			System.out.println("Done");
 
-			return output.toString(); // Devuelve la salida de PowerShell como resultado
+			return output.toString(); 
 
 		} else {
-			throw new RuntimeException("Credenciales inválidas");
+			throw new RuntimeException("Usuario y contraseña invalidos");
 		}
 	}
 
 	public void AgregarIp(UsuarioIp userIp) throws IOException {
 		UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
 		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())) {
-			if (foundUser.getIp().equals(userIp.getIp())) {
-				throw new RuntimeException("El usuario ya esta registrado");
-			}
+			
 			if (userIp.getIp() != null) {
 				List<String> ipList = repoIp.findDistinctIp();
+				
 				if (ipList.contains(userIp.getIp())) {
-	                throw new RuntimeException("IP inválida");
+	                throw new RuntimeException("La IP es invalida");
 	            }
+				
 				else {
 					foundUser.setIp(userIp.getIp());
 					repoIp.save(foundUser);
 					ipList = repoIp.findDistinctIp();
+					
 					if (!ipList.isEmpty()) {
 						StringBuilder remoteAddresses = new StringBuilder();
 						
@@ -114,21 +117,27 @@ public class PowerShellService {
 				}
 				// return ResponseEntity.ok("Ejecución de PowerShell completa");
 			} else {
-				throw new RuntimeException("Falta agregar la direccion IP");
+				throw new RuntimeException("La IP es invalida");
 			}
 
 		} else {
 			foundUser.setUsuario(userIp.getIp());
-			throw new RuntimeException("Credenciales inválidas");
+			throw new RuntimeException("Usuario y contraseña invalidos");
 		}
 	}
 	
 	public void borrarIp(UsuarioIp userIp) throws IOException {
 		UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
-		if (foundUser.getIp() == null) {
+		if (foundUser.getIp() == null ) {
 			throw new RuntimeException("La IP ya se encuentra borrada");
 		}
-		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña()) && foundUser.getIp().equals(userIp.getIp())) {
+		
+		if (!foundUser.getIp().equals(userIp.getIp()) ) {
+			throw new RuntimeException("IP invalida");
+		}
+		
+		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())) {
+			foundUser.setIp(null);
 			repoIp.save(foundUser);
 			List<String> ipList = repoIp.findDistinctIp();
 			if (!ipList.isEmpty()) {
@@ -161,7 +170,7 @@ public class PowerShellService {
 				System.out.println("Done");
 
 		} else {
-			throw new RuntimeException("Credenciales inválidas");
+			throw new RuntimeException("Usuario y contraseña invalidos ");
 		}
 	}
 
