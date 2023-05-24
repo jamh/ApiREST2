@@ -30,10 +30,10 @@ public class PowerShellController {
 	        PowerShellResponseDTO response = powerShellService.VerRegla(userIp);
 	        return ResponseEntity.ok(response);
 	    } catch (IOException e) {
-	        PowerShellResponseDTO response = new PowerShellResponseDTO("Error en la ejecución de PowerShell", 500, null);
+	        PowerShellResponseDTO response = new PowerShellResponseDTO("Error en la ejecución de PowerShell", 0, null);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	    } catch (RuntimeException e) {
-	        PowerShellResponseDTO response = new PowerShellResponseDTO(e.getMessage(), 401, null);
+	        PowerShellResponseDTO response = new PowerShellResponseDTO(e.getMessage(), 0, null);
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	    }
 	}
