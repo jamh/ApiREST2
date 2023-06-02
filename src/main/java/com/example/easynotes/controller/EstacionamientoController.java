@@ -23,7 +23,7 @@ public class EstacionamientoController {
     public List<Estacionamiento> getAllEstacionamiento() {
         return repo.findAll();
     }
-	
+	/*
 	@PutMapping("/actualizar99")
     public String actualizarColumna() {
         int actualizarPosicion= repo.actualizarPosicion();
@@ -53,6 +53,6 @@ public class EstacionamientoController {
                 estacionamiento.getFechaCap());
         return new ResponseEntity<>("Registro insertado exitosamente", HttpStatus.CREATED);
     }
-	
+	*/
 
 }

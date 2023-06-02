@@ -37,9 +37,7 @@ public class Descuentos {
 	@NotBlank
 	private String tarjeta;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "uid", referencedColumnName = "uid")
-	private Estacionamiento estacionamiento;
+	
 	
 
 	public Long getId() {

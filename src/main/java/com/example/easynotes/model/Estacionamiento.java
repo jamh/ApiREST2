@@ -2,6 +2,7 @@ package com.example.easynotes.model;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,29 +14,29 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Estacionamiento {
 	
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@NotBlank
 	private String uid;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H_Entrada")
+	
+	@Column(name = "H.Entrada", insertable = false, updatable = false)
     private Date hEntrada;
-    
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H_Salida")
+    	
+	@Column(name = "H.Salida", insertable = false, updatable = false)
     private Date hSalida;
     
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "H_Pago")
+	@Column(name = "H.Pago", insertable = false, updatable = false)
     private Date hPago;
     
 	@Column(name = "Posicion")
 	@NotBlank
 	private Long posicion;
     
+	@Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yy")
 	private Date fecha;
     
     @Column(name = "monto_pago")
@@ -50,11 +51,7 @@ public class Estacionamiento {
     
     @Column(name = "fecha_cap")
     @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
     private Date fechaCap;
-    
-    @OneToOne(mappedBy = "estacionamiento", cascade = CascadeType.ALL)
-    private Descuentos descuentos;
     
 
 	public Long getId() {
@@ -137,8 +134,6 @@ public class Estacionamiento {
 		this.descuento = descuento;
 	}
 
-	
-
 	public Double getImporteDescuento() {
 		return importeDescuento;
 	}
@@ -157,7 +152,4 @@ public class Estacionamiento {
 
 	
 
-	
-    
-	
 }

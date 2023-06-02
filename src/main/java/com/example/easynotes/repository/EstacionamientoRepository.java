@@ -2,18 +2,13 @@ package com.example.easynotes.repository;
 
 import com.example.easynotes.model.Estacionamiento;
 
-import java.util.Date;
-import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EstacionamientoRepository extends JpaRepository<Estacionamiento, Long> {
 	
+	/*
 	@Modifying
     @Transactional
     @Query("UPDATE Estacionamiento SET Posicion = 1 WHERE Posicion = 99")
@@ -26,7 +21,7 @@ public interface EstacionamientoRepository extends JpaRepository<Estacionamiento
 	
 	@Transactional
 	@Modifying
-    @Query(value = "INSERT INTO Estacionamiento (uid, H_Entrada, H_Salida, H_Pago, Posicion, fecha, monto_pago, pagado, descuento, importe_descuento, fecha_cap) "
+    @Query(value = "INSERT INTO Estacionamiento (uid, H.Entrada, H.Salida, H.Pago, Posicion, fecha, monto_pago, pagado, descuento, importe_descuento, fecha_cap) "
     		+ "VALUES (:uid, :hEntrada, :hSalida, :hPago, :posicion, :fecha, :montoPago, :pagado, :descuento, :importeDescuento, :fechaCap)", nativeQuery = true)
     void insertarEstacionamiento(
     		@Param("uid") String uid, 
@@ -39,5 +34,5 @@ public interface EstacionamientoRepository extends JpaRepository<Estacionamiento
             @Param("pagado") Double pagado, 
             @Param("descuento") Long descuento,
             @Param("importeDescuento") Double importeDescuento, 
-            @Param("fechaCap") Date fechaCap);
+            @Param("fechaCap") Date fechaCap);.*/
 }
