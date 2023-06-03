@@ -33,10 +33,9 @@ public class PowerShellService {
 	        }
 
 	        String command = "powershell.exe  Get-NetFirewallrule -DisplayName 'Puerto1521' | Get-NetFirewallAddressFilter";
-
 	        Process powerShellProcess = Runtime.getRuntime().exec(command);
-
 	        powerShellProcess.getOutputStream().close();
+	        
 	        System.out.println(command);
 	        String line;
 	        StringBuilder output = new StringBuilder();
@@ -94,7 +93,16 @@ public class PowerShellService {
 						Process powerShellProcess = Runtime.getRuntime().exec(command);
 						powerShellProcess.getOutputStream().close();
 						
-						command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+						command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+								+ remoteAddresses.toString();
+						powerShellProcess = Runtime.getRuntime().exec(command);
+						powerShellProcess.getOutputStream().close();
+						
+						command = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
+						powerShellProcess = Runtime.getRuntime().exec(command);
+						powerShellProcess.getOutputStream().close();
+						
+						command = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
 								+ remoteAddresses.toString();
 						powerShellProcess = Runtime.getRuntime().exec(command);
 						powerShellProcess.getOutputStream().close();
@@ -152,12 +160,24 @@ public class PowerShellService {
 			        remoteAddresses.append("'").append(ip).append("', ");
 			    }
 			    remoteAddresses.deleteCharAt(remoteAddresses.length() - 2);
+			    
 				String command = "powershell.exe Remove-NetFirewallRule -DisplayName 'Puerto1521'";
 				Process powerShellProcess = Runtime.getRuntime().exec(command);
 				powerShellProcess.getOutputStream().close();
-				command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress " + remoteAddresses.toString();
+				
+				command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress " + remoteAddresses.toString();
 				System.out.println(command);
 				powerShellProcess = Runtime.getRuntime().exec(command);
+				
+				command = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
+				powerShellProcess = Runtime.getRuntime().exec(command);
+				powerShellProcess.getOutputStream().close();
+				
+				command = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+						+ remoteAddresses.toString();
+				powerShellProcess = Runtime.getRuntime().exec(command);
+				powerShellProcess.getOutputStream().close();
+				
 				powerShellProcess.getOutputStream().close();
 				String line;
 				System.out.println("Standard Output:");
