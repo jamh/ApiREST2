@@ -90,6 +90,6 @@ public class imprimir {
 
         ImprimirService imprimirService = new ImprimirService();
         imprimir obj = new imprimir();
-        obj.Sample("POS58 Printer(2)", "ADF808423", "1234", "02/02/2022", "10:00:01 a. m", "12:00:00 p.m.", "$230.00");
+        obj.Sample("CLA58 Printer", "ADF808423", "1234", "02/02/2022", "10:00:01 a. m", "12:00:00 p.m.", "$230.00");
     }
 }

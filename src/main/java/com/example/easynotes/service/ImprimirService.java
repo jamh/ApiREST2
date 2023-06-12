@@ -25,7 +25,7 @@ public class ImprimirService {
         String hPago = formato.format(foundUid.gethPago());
         String montoPago = String.valueOf(foundUid.getMontoPago());
 
-        imp.Sample("POS58 Printer(2)", uid, id, hEntrada, hEntrada, hPago, "$" + montoPago + ".00");
+        imp.Sample("CLA58 Printer", uid, id, hEntrada, hEntrada, hPago, "$" + montoPago + ".00");
     }
 }
 
