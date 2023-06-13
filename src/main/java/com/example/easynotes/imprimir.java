@@ -46,21 +46,21 @@ public class imprimir {
             escpos.writeLF(
                     "Av. Juarez #803,Col. la Villita Pachuca, Hidalgo, C.P. 42060    RFC MAOE6909168F5");
             escpos.feed(1);
-            escpos.writeLF("H. Entrada:" + hEntrada);
+            escpos.writeLF("H. Entrada: " + hEntrada);
             escpos.feed(1);
-            escpos.writeLF("H. Salida:" + hSalida);
+            escpos.writeLF("H. Salida: " + hSalida);
             escpos.feed(1);
-            escpos.writeLF("Boleto:" + boleto);
+            escpos.writeLF("Boleto: " + boleto);
             escpos.feed(1);
-            escpos.writeLF("Folio:" + folio);
+            escpos.writeLF("Folio: " + folio);
             escpos.feed(1);
-            escpos.writeLF("Importe:" + importe);
+            escpos.writeLF("Importe: " + importe);
             escpos.feed(1);
             escpos.writeLF(
                     "SI REQUIERE FACTURA SOLICITARLA AL ADMINISTRADOR  TIENE HASTA FIN DE MES PARA FACTURAR");
             escpos.feed(1);
             escpos.writeLF(
-                    "Tiene 9 min para salir en caso contrario se le aplicara la tarifa normal");
+                    "Tiene 9 min para salir en caso  contrario se le aplicara la tarifa normal");
             escpos.feed(2);
 
             barcode.setSystem(BarCode.BarCodeSystem.UPCA);
@@ -90,6 +90,6 @@ public class imprimir {
 
         ImprimirService imprimirService = new ImprimirService();
         imprimir obj = new imprimir();
-        obj.Sample("CLA58 Printer", "ADF808423", "1234", "02/02/2022", "10:00:01 a. m", "12:00:00 p.m.", "$230.00");
+        obj.Sample("POS58 Printer", "ADF808423", "1234", "02/02/2022", "10:00:01 a. m", "12:00:00 p.m.", "$230.00");
     }
 }

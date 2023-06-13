@@ -14,9 +14,11 @@ public class ImprimirService {
     @Autowired
     ImprimirRepository imprimirRepo;
 
-    public void imprimirTicket(String uid, Estacionamiento estacionamiento) throws IOException {
-        Estacionamiento foundUid = imprimirRepo.findByUid(uid);
+    public void imprimirTicket(Estacionamiento estacionamiento) throws IOException {
+    	
+    	Estacionamiento foundUid = imprimirRepo.findById();
         
+        String uid= foundUid.getUid();
         imprimir imp = new imprimir();
         String id = Long.toString(foundUid.getId());
         
@@ -24,8 +26,13 @@ public class ImprimirService {
         String hEntrada = formato.format(foundUid.gethEntrada());
         String hPago = formato.format(foundUid.gethPago());
         String montoPago = String.valueOf(foundUid.getMontoPago());
+    
+        
+       
 
-        imp.Sample("CLA58 Printer", uid, id, hEntrada, hEntrada, hPago, "$" + montoPago + ".00");
+        imp.Sample("POS58 Printer", uid, id, hEntrada, hEntrada, hPago, "$" + montoPago + ".00");
+        
+        int actualizarTicket= imprimirRepo.actualizarTicket();
     }
 }
 

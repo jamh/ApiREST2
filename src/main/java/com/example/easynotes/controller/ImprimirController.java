@@ -31,11 +31,10 @@ public class ImprimirController {
 	ImprimirService imprimirSer;
 	
 	
-	@GetMapping("/ticket/{uid}")
-	public ResponseEntity<String> imprimirTicket(@PathVariable(value = "uid") String uid) {
+	@GetMapping("/ticket")
+	public ResponseEntity<String> imprimirTicket(Estacionamiento estacionamiento) {
 	    try {
-	    	Estacionamiento estacionamiento = new Estacionamiento();
-	        imprimirSer.imprimirTicket(uid, estacionamiento);
+	        imprimirSer.imprimirTicket(estacionamiento);
 	        return ResponseEntity.ok("Ticket impreso exitosamente.");
 	    } catch (IOException e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al imprimir el ticket.");
