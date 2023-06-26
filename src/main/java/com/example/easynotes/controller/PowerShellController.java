@@ -40,10 +40,10 @@ public class PowerShellController {
 
                     
 	@PostMapping("/AgregarUsuario")
-	public ResponseEntity<PowerShellResponseDTO> agregarIp(@RequestBody UsuarioIp userIp) {
+	public ResponseEntity<PowerShellResponseDTO> agregarIp(@RequestBody UsuarioIp userIp) throws InterruptedException {
 	    try {
 	        powerShellService.AgregarIp(userIp);
-	        PowerShellResponseDTO response = new PowerShellResponseDTO("Se agregó correctamente el usuario", 1, null);
+	        PowerShellResponseDTO response = new PowerShellResponseDTO("Se agregó correctamente la ip", 1, null);
 	        return ResponseEntity.ok(response);
 	    } catch (IOException e) {
 	        PowerShellResponseDTO response = new PowerShellResponseDTO("Error en la ejecución de PowerShell", 0, null);
@@ -55,7 +55,7 @@ public class PowerShellController {
 	}
 	
 	@PostMapping("/BorrarUsuario")
-	public ResponseEntity<PowerShellResponseDTO> borrarIp(@RequestBody UsuarioIp userIp) {
+	public ResponseEntity<PowerShellResponseDTO> borrarIp(@RequestBody UsuarioIp userIp) throws InterruptedException {
 	    try {
 	        powerShellService.borrarIp(userIp);
 	        PowerShellResponseDTO response = new PowerShellResponseDTO("Se borró correctamente la IP", 1, null);

@@ -27,6 +27,7 @@ public class PowerShellService {
 	
 	public PowerShellResponseDTO VerRegla(UsuarioIp userIp) throws IOException {
 	    UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
+	    
 	    if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())) {
 	        if (foundUser.getIp() == null || !foundUser.getIp().equals(userIp.getIp())) {
 	            throw new RuntimeException("IP invalida");
@@ -65,7 +66,7 @@ public class PowerShellService {
 
 
 
-	public void AgregarIp(UsuarioIp userIp) throws IOException {
+	public void AgregarIp(UsuarioIp userIp) throws IOException, InterruptedException {
 		UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
 		if (foundUser != null && foundUser.getContraseña().equals(userIp.getContraseña())) {
 			
@@ -87,36 +88,56 @@ public class PowerShellService {
 						for (String ip : ipList) {
 							remoteAddresses.append("'").append(ip).append("', ");
 						}
-						
 						remoteAddresses.deleteCharAt(remoteAddresses.length() - 2);
+						
+						
 						String command = "powershell.exe Remove-NetFirewallRule -DisplayName 'Puerto1521'";
 						Process powerShellProcess = Runtime.getRuntime().exec(command);
-						powerShellProcess.getOutputStream().close();
+						powerShellProcess.waitFor();
+						//powerShellProcess3.getOutputStream().close();
+						System.out.println(powerShellProcess);
 						
-						command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+						
+						
+						String command2 = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
 								+ remoteAddresses.toString();
-						powerShellProcess = Runtime.getRuntime().exec(command);
-						powerShellProcess.getOutputStream().close();
+						Process powerShellProcess2 = Runtime.getRuntime().exec(command2);
+						//powerShellProcess.getOutputStream().close();
+						powerShellProcess2.waitFor();
+						System.out.println(powerShellProcess2);
 						
-						command = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
-						powerShellProcess = Runtime.getRuntime().exec(command);
-						powerShellProcess.getOutputStream().close();
 						
-						command = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+						String command3 = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
+						Process powerShellProcess3 = Runtime.getRuntime().exec(command3);
+						powerShellProcess3.waitFor();
+						System.out.println(powerShellProcess3);
+						
+						
+						String command4 = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
 								+ remoteAddresses.toString();
-						powerShellProcess = Runtime.getRuntime().exec(command);
-						powerShellProcess.getOutputStream().close();
+						Process powerShellProcess4 = Runtime.getRuntime().exec(command4);
+						//powerShellProcess2.getOutputStream().close();
+						powerShellProcess4.waitFor();
+						System.out.println(powerShellProcess4);
+					
+						System.out.println("Standard Output:");
 						
 						String line;
-						System.out.println("Standard Output:");
 						BufferedReader stdout = new BufferedReader(
-								new InputStreamReader(powerShellProcess.getInputStream()));
-						
+								new InputStreamReader(powerShellProcess2.getInputStream()));
 						while ((line = stdout.readLine()) != null) {
 							System.out.println(line);
 						}
+						stdout.close(); 
 						
-						stdout.close();
+						String line2;
+						BufferedReader stdout2 = new BufferedReader(
+								new InputStreamReader(powerShellProcess4.getInputStream()));
+						while ((line2 = stdout2.readLine()) != null) {
+							System.out.println(line2);
+						}
+						stdout2.close(); 
+						
 						System.out.println("Standard Error:");
 						BufferedReader stderr = new BufferedReader(
 								new InputStreamReader(powerShellProcess.getErrorStream()));
@@ -126,10 +147,11 @@ public class PowerShellService {
 						stderr.close();
 						
 						System.out.println("Done");
+						
 					} 
 					
 				}
-				// return ResponseEntity.ok("Ejecución de PowerShell completa");
+				
 			} else {
 				throw new RuntimeException("La IP es invalida");
 			}
@@ -140,7 +162,7 @@ public class PowerShellService {
 		}
 	}
 	
-	public void borrarIp(UsuarioIp userIp) throws IOException {
+	public void borrarIp(UsuarioIp userIp) throws IOException, InterruptedException {
 		UsuarioIp foundUser = repoIp.findByUsuario(userIp.getUsuario());
 		if (foundUser.getIp() == null ) {
 			throw new RuntimeException("La IP ya se encuentra borrada");
@@ -163,29 +185,40 @@ public class PowerShellService {
 			    
 				String command = "powershell.exe Remove-NetFirewallRule -DisplayName 'Puerto1521'";
 				Process powerShellProcess = Runtime.getRuntime().exec(command);
-				powerShellProcess.getOutputStream().close();
+				//powerShellProcess.getOutputStream().close();
+				powerShellProcess.waitFor();
 				
-				command = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress " + remoteAddresses.toString();
-				System.out.println(command);
-				powerShellProcess = Runtime.getRuntime().exec(command);
+				String command2 = "powershell.exe New-NetFirewallRule -DisplayName 'Puerto1521' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress " + remoteAddresses.toString();
+				Process powerShellProcess2 = Runtime.getRuntime().exec(command2);
+				powerShellProcess2.waitFor();
 				
-				command = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
-				powerShellProcess = Runtime.getRuntime().exec(command);
-				powerShellProcess.getOutputStream().close();
 				
-				command = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
+				String command3 = "powershell.exe Remove-NetFirewallRule -DisplayName 'SPuerto1521'";
+		        Process powerShellProcess3 = Runtime.getRuntime().exec(command3);
+				powerShellProcess3.waitFor();
+				
+				
+				String command4 = "powershell.exe New-NetFirewallRule -DisplayName 'SPuerto1521' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1521 -RemoteAddress "
 						+ remoteAddresses.toString();
-				powerShellProcess = Runtime.getRuntime().exec(command);
-				powerShellProcess.getOutputStream().close();
+				Process powerShellProcess4 = Runtime.getRuntime().exec(command4);
+				powerShellProcess4.waitFor();
 				
-				powerShellProcess.getOutputStream().close();
 				String line;
 				System.out.println("Standard Output:");
-				BufferedReader stdout = new BufferedReader(new InputStreamReader(powerShellProcess.getInputStream()));
+				BufferedReader stdout = new BufferedReader(new InputStreamReader(powerShellProcess2.getInputStream()));
 				while ((line = stdout.readLine()) != null) {
 					System.out.println(line);
 				}
 				stdout.close();
+				
+				String line2;
+				BufferedReader stdout2 = new BufferedReader(
+						new InputStreamReader(powerShellProcess4.getInputStream()));
+				while ((line2 = stdout2.readLine()) != null) {
+					System.out.println(line2);
+				}
+				stdout2.close(); 
+				
 				System.out.println("Standard Error:");
 				BufferedReader stderr = new BufferedReader(new InputStreamReader(powerShellProcess.getErrorStream()));
 				while ((line = stderr.readLine()) != null) {
